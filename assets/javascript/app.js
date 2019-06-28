@@ -10,13 +10,18 @@ function addBtn(name){
         // console.log(this.innerHTML);
         let queryString = this.innerHTML;
         const queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        queryString + "&api_key=POQHvWMKuG0bSteQ6PzCKHblrUDR68oO&limit:10";
+        queryString + "&limit:10&api_key=POQHvWMKuG0bSteQ6PzCKHblrUDR68oO";
         $.ajax({
             url: queryURL,
             method: "GET"
           })
             .then(function(response) {
                 console.log(response);
+                const giphy = $('<div>');
+                const giphyImage = $('<img>');
+                giphyImage.attr('src', response.data[0].images.fixed_height.url);
+                giphy.append(giphyImage);
+                $('#gifs').prepend(giphy);
             });
     });
 };
